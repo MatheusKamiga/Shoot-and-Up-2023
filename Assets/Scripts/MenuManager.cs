@@ -34,7 +34,7 @@ public class MenuManager : MonoBehaviour
         joinButton.onClick.AddListener(JoinRoom);
         createButton.onClick.AddListener(CreateRoom);
         leaveButton.onClick.AddListener(LeaveRoom);
-        startButton.onClick.AddListener(delegate { StartGame("SampleScene"); });
+        startButton.onClick.AddListener(delegate { StartGame("Jogo"); });
 
         // Define os botões joinButton e createButton como não interativos inicialmente.
         joinButton.interactable = false;
