@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -194,6 +195,18 @@ public class PlayerController : SpaceShip
         }
     }
 
-   
-    
+    bool controllerOn = true;
+    [PunRPC]
+    private void Initialize()
+    {
+        if (!photonView.IsMine)
+        {
+            Color color = Color.white;
+            color.a = 0.1f;
+            GetComponent<SpriteRenderer>().color = color;
+            rigidbody2D.isKinematic = true;
+            controllerOn = false;
+        }
+    }
+
 }

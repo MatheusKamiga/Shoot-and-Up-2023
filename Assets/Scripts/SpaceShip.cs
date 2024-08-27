@@ -1,10 +1,11 @@
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.HID;
 
-public class SpaceShip : MonoBehaviour, IDamageable
+public class SpaceShip : MonoBehaviourPun, IDamageable
 {
     [SerializeField] protected float speed, fireRate, maxHealth, damage;
     protected float health, timer;
@@ -76,5 +77,18 @@ public class SpaceShip : MonoBehaviour, IDamageable
     protected virtual void Destroy()
     {
 
+    }
+    bool controllerOn = true;
+    [PunRPC]
+    private void Initialize()
+    {
+        if (!photonView.IsMine)
+        {
+            Color color = Color.white;
+            color.a = 0.1f;
+            GetComponent<SpriteRenderer>().color = color;
+            rigidbody2D.isKinematic = true;
+            controllerOn = false;
+        }
     }
 }

@@ -1,12 +1,17 @@
+using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPun
 {
     int score, record, playerCoins, deathsAmount;
     [SerializeField]UIManager managerUI;
+
+    const string playerPrefabPath = "Prefabs/StarShip";
+    int playersInGame = 0;
 
     #region Singleton
     public static GameManager instance;
@@ -142,4 +147,29 @@ public class GameManager : MonoBehaviour
             return false;
         }
     }
+
+    // RPC 
+
+    private void CreatePlayer()
+    {
+        PlayerController player = NetworkManager.instance.Instantiate(playerPrefabPath, new Vector3(-5, 0), Quaternion.identity).GetComponent<PlayerController>();
+        player.photonView.RPC("Initialize", RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void AddPlayer()
+    {
+        playersInGame++;
+        if (playersInGame == PhotonNetwork.PlayerList.Length)
+        {
+            CreatePlayer();
+        }
+    }
+
+    //[PunRPC]
+    //public void SetScore(int value)
+    //{
+        //score += value;
+        //UIManager.instance.UpdateScoreText();
+   // }
 }

@@ -5,6 +5,15 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+
+    #region Singleton
+    public static UIManager instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+    #endregion
     [SerializeField] Text scoreUI, finalScoreUI, recordUI, newRecordUI;
     [SerializeField] GameObject gameOverWindow, rewardWindow;
 
