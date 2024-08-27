@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviourPun
     int score, record, playerCoins, deathsAmount;
     [SerializeField]UIManager managerUI;
 
-    const string playerPrefabPath = "Prefabs/StarShip";
+    const string playerPrefabPath = "Prefabs/Player";
     int playersInGame = 0;
 
     #region Singleton
@@ -36,6 +36,10 @@ public class GameManager : MonoBehaviourPun
 
     #endregion
 
+    private void Start()
+    {
+        photonView.RPC("AddPlayer", RpcTarget.AllBuffered);
+    }
     private void AddCoins(int value)
     {
         playerCoins += value;
