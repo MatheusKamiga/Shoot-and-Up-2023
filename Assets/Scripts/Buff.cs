@@ -14,6 +14,10 @@ public class Buff : Projectile
     [SerializeField] int buffType;
      float buffDuration, buffPower;
 
+    [SerializeField] string prefabPath;
+
+    public string PrefabPath { get => prefabPath;}
+
     protected override void Start()
     {
         base.Start();

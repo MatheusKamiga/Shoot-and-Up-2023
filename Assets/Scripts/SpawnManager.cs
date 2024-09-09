@@ -81,7 +81,7 @@ public class SpawnManager : MonoBehaviour
         {
             buffTimer = buffCooldown;
             GameObject buffSelected = ChoosenBuff();
-            Instantiate(buffSelected, GeneratePosition(buffSelected), Quaternion.identity);
+            NetworkManager.instance.Instantiate(buffSelected.GetComponent<Buff>().PrefabPath, GeneratePosition(buffSelected), Quaternion.identity);
 
         }
     }
@@ -100,7 +100,7 @@ public class SpawnManager : MonoBehaviour
             }
 
             enemyShipTimer = enemyShipCooldown;
-            Instantiate(enemyShipSelected, GeneratePosition(enemyShipSelected), Quaternion.identity);
+            NetworkManager.instance.Instantiate(enemyShipSelected.GetComponent<EnemyShip>().PrefabPath, GeneratePosition(enemyShipSelected), Quaternion.identity);
         }
     }
 }
