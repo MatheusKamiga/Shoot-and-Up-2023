@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class SpawnManager : MonoBehaviour
+public class SpawnManager : MonoBehaviourPun
 {
     [SerializeField] GameObject[] asteroidPrefabs, enemyShipPrefab, buffPrefab;
     const float asteroidCooldown = 2, buffCooldown = 4, enemyShipCooldown = 5;
@@ -18,9 +19,10 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SpawnAsteroid();
-        SpawnBuff();
-        SpawnEnemyShip();
+        if (NetworkManager.instance.masterClient)
+        {
+            photonView.RPC("spawAll", RpcTarget.AllBuffered);
+        }
     }
 
     Vector2 GeneratePosition(GameObject objectSelected)
@@ -97,7 +99,15 @@ public class SpawnManager : MonoBehaviour
             }
 
             enemyShipTimer = enemyShipCooldown;
-            Instantiate(enemyShipSelected, GeneratePosition(enemyShipSelected), Quaternion.identity);
+          Instantiate(enemyShipSelected, GeneratePosition(enemyShipSelected), Quaternion.identity);
         }
+    }
+
+    [PunRPC]
+    void spawAll()
+    { 
+            SpawnAsteroid();
+            SpawnBuff();
+            SpawnEnemyShip();
     }
 }

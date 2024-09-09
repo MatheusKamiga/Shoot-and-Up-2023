@@ -42,6 +42,8 @@ MonoBehaviour:
   - RespawnSpaceship
   - AddPlayer
   - Setup
+  - OnTriggerEnter2D
+  - spawAll
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
