@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class EnemyShip : SpaceShip
 {
@@ -27,11 +28,14 @@ public class EnemyShip : SpaceShip
     {
         base.Update();
 
-        CheckDestination();
-        CheckBounds();
-        LookAt();
+        
+        photonView.RPC("CheckDestination", RpcTarget.All);
+        photonView.RPC("CheckBounds", RpcTarget.All);
+        photonView.RPC("LookAt", RpcTarget.All);
+        
+        
     }
-
+    [PunRPC]
     private void CheckDestination()
     {
         if (direction.x == 0 && transform.position.y < destination)
@@ -40,6 +44,7 @@ public class EnemyShip : SpaceShip
         }
     }
 
+    [PunRPC]
     private void CheckBounds()
     {
         if (transform.position.x > screenBounds.x)
@@ -51,6 +56,7 @@ public class EnemyShip : SpaceShip
         }
     }
 
+    [PunRPC]
     private void LookAt()
     {
         spriteRender.transform.up = player.position - transform.position;
