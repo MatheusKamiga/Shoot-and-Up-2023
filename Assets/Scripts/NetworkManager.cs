@@ -28,8 +28,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     #endregion
 
-    
-    public bool masterClient = PhotonNetwork.IsMasterClient;
     // Método chamado antes do primeiro frame de atualização
     void Start()
     {

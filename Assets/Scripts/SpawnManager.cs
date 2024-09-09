@@ -19,7 +19,7 @@ public class SpawnManager : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        if (NetworkManager.instance.masterClient)
+        if (PhotonNetwork.IsMasterClient)
         {
             photonView.RPC("spawAll", RpcTarget.AllBuffered);
         }
